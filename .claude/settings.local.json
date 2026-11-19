@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /home/elias/prueba-app; find /home/elias -name \"*.py\" -newer /home/elias/proyecto-scraping/main.py -not -path \"*/.venv/*\" -not -path \"*/.cache/*\" -not -path \"*/site-packages/*\" 2>/dev/null | head -20)",
+      "Bash(/home/elias/prueba-app/.venv/bin/python -I - page.html)",
+      "Bash(.venv/bin/python main.py)"
+    ]
+  }
+}
