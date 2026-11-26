@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import requests
 import time
+from pathlib import Path
 
 url_base = "https://www.laliga.com/estadisticas/laliga-easports/goleadores/pagina/{}"
 max_paginas = 31  # 606 jugadores / 20 por página
@@ -47,10 +48,13 @@ for numero_pagina in range(1, max_paginas + 1):
 
     time.sleep(1)  # para no saturar la web
 
-df = pd.DataFrame(jugadores)
-df = df[df["goles_a_favor"] > 0]  # solo goleadores
+df_original = pd.DataFrame(jugadores)
+df = df_original[df_original["goles_a_favor"] > 0]  # solo goleadores
 
 print(df.to_string(index=False))
 print(f"Total goleadores: {len(df)}")
 
-df.to_csv("goleadores_laliga.csv", index=False, encoding="utf-8-sig")
+carpeta_datos = Path(__file__).parent / "datos"
+carpeta_datos.mkdir(exist_ok=True)  # crea la carpeta si no existe
+
+df.to_csv(carpeta_datos / "goleadores_laliga.csv", index=False, encoding="utf-8-sig")
